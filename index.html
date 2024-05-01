@@ -1,0 +1,270 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        
+        html, pre{
+            background-color: black;
+            color:white;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        script{
+            overflow: scroll;
+        }
+        code{
+            font-family:monospace;
+            background-color: darkslategrey;
+            font-size:larger;
+        }
+        a,a:visited{
+            color:lightblue;
+        }
+        header{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #content{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-right: 10px;
+            margin-left: 10px;
+            /* border: 2px solid white; */
+            padding:15px;
+            background-color: #111212;
+        }
+        .gist{
+            height:10%;
+            width:80%;
+            margin:0 auto;
+        }
+        .tableauPlaceholder{
+            width:60%;
+            height:auto;
+        }
+        dialog[open] {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+        }
+        dialog[open] * {
+            background-color: white;
+            color:black;
+            overflow:auto;
+        }
+        .sqlLink{
+            color:lightgreen;
+            cursor:pointer;
+        }
+        button{
+            margin-top: 15px;
+            border:2px solid black;
+        }
+        h1{
+            background-color: darkslategray;
+            padding:10px;
+            width:100%;
+        }
+        h2{
+            font-size:xx-large;
+            margin:0;
+            border-bottom: 1px solid white;
+        }
+    </style>
+    <title>FIFA 23 Transfer Market Analysis</title>
+    
+</head>
+<body>
+    <header>
+        <h1>FIFA 23 Transfer Market Analysis</h1>
+    </header>
+    <div id="content">
+        <h2>
+            Introduction
+        </h2>
+        <p>
+            FIFA, developed by Entertainment Arts (EA), is<a target="_blank" href='https://www.gamesindustry.biz/ea-extends-uefa-exclusivity-working-on-multiple-fifa-mobile-games'> one of the best-selling game franchises in the world</a>. Its 2022 edition, entitled FIFA 23, includes a dataset of over 18,000 soccer players, their individual attributes, and the international and club teams they belong to. Within each player's individual attributes is a fixed market value (in Euros), which estimates the player's real-life market value. 
+        </p>
+        <p>
+            This project seeks to explore the market value assigned to players in FIFA 23, noting any significant correlations between it and the players' other individual attributes. These correlations will provide an indication of the developers' thought process when determining the scope and priorities of the market value attribute.
+        </p>
+        <p>
+            Below is the Python script that was written for this project. It extracted <span class="sqlLink" id="numPlayersTeamsNations">16,170 players from 155 countries and 874 teams</span>, along with the players' names, overall rating, nationality, age, and position. It automatically exports the dataset into a csv file on the user's system and creates a pandas DataFrame variable with the name <code>df</code>, allowing for convenient, immediate analysis with the pandas library. 
+        </p>
+        <div class="gist" id="scraping-script">
+            <script src="https://gist.github.com/hadialsayedali01/a538fa98a41366db7e79207ea9b69486.js"></script>
+        </div>
+        <p>
+            This dataset was joined with another to eliminate "icon" players: players who had retired before 2022 and whose market value was not reflective of the time of analysis. Several other columns were created, such as <code>Continent</code> (on the basis of the governing body that the nation's soccer federation belongs to; for instance, 'Australia' was categorized under 'Asia') and <code>Position Category</code>.
+        </p>
+        <h2>
+            Overview and Preprocessing
+        </h2>
+        <p>
+            Hover over the countries in the interactive visualization below to see the total number of players of each nationality.
+        </p>
+        <div class='tableauPlaceholder' id='viz1714180276869' style='position: relative'><noscript><a href='#'><img alt='Number of Players by Nation ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;FI&#47;FIFA23Players&#47;Sheet1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='FIFA23Players&#47;Sheet1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;FI&#47;FIFA23Players&#47;Sheet1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1714180276869');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+        <p>
+            We now begin the analysis by importing relevant libraries and the dataset, and taking a geneneral view of the data.
+        </p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/1c31b6e0344505979f00d6d0b8266557.js"></script>
+        </div>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/d6c1c132df2b526c8babd0af8788b231.js"></script>
+        </div>
+        <p>We then clean the dataset, making sure to drop any duplicates at the start and end of this process.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/f8391bd4e7140cfce49e148d7a87aaff.js"></script>
+        </div>
+        <h2>
+            Analysis
+        </h2>
+        <p>We take a look at the overall rating distribution. The <span class="sqlLink" id="avgModeRating">average rating for FIFA 23 players is 63.6085 and the mode of the overall rating is 60</span>.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/288745d75edcf739d8e83314b45eeded.js"></script>
+        </div>
+        <p><strong>How does market value differ by nationality?</strong> Brazil is the <span class='sqlLink' id="nationsValue">highest-valued nationality</span>. Since Brazil has the <span class="sqlLink" id="nationsRating">highest-average overall rating</span>, this is expected. Note that some nationalities have very few players, who inflate their nation's players' average market value. For this reason, we consider only nations with over 350 players.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/245f3f32d82d6fc540234228e3c0e422.js"></script>
+        </div>
+        <p><strong>How does market value differ by position category?</strong> Attackers are the most highly valued players, while defenders are valued the least. This acknowledges an unfortunate but known truth to the game: despite defence being a rudiment of the sport and many successful clubs, such as <a target='_blank' href="https://finance.yahoo.com/news/soccer-gritty-simeone-forges-winning-mentality-atletico-030007426--sow.html?guccounter=1&guce_referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig=AQAAAIGxcY_8-V1pVCrHuoQL_U0eVtJm1dbQiaM0sWJ7lp0GQhkqPvDZv5fpn3eryK5gqxury2nSeoRgSQ6SvfIGGsG1IUOl5fxHa-nc--6aEG65aDJJenRFxKnhc-SOu8XUr8NbGq_tlk1bs8QDDDs96xbeOCw-usUDNqYoeqcLdMo5"> Atletico Madrid, openly stating that their playing style is oriented defensively</a>, attackers are still significantly overvalued over defenders.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/edf246bcb8283ef6c206495313fd7d15.js"></script>
+        </div>
+        <p><strong>How does market value change over a player's career?</strong> A player's market value often peaks at age 30, which is 2-3 years after the age many experts agree is the peak of their overall atheticism and playing ability. Market value is significantly lower during a player's teens; however, this is beginning to change, with teams such as <a target='_blank' href="https://www.espn.co.uk/football/story/_/id/38304925/chelsea-spend-1-billion-euros-players-three-transfer-windows"> Chelsea spending over a billion Euros within three transfer windows</a> on a squad comprised of many players under 24 years of age. Large teams are generally becoming less risk-averse as their funding increases exponentially year-by-year.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/3327714e689678608f2a1321d057811d.js"></script>
+        </div>
+        <p>Age (and by extension, Potential) is becoming increasingly important in a player's market value; Lionel Messi (age 35), for example, is valued at 12 million Euros less than Florian Wirtz (age 19), despite Messi having 9 units of overall rating higher than Wirtz and being significantly more established in the sport.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/4ea06c6e9bfb62b2eaef9d04462a38a7.js"></script>
+        </div>
+        <p>
+            <strong>What are the most valuable clubs, by total value?</strong> Manchester City and FC Barcelona top this ranking, which is entirely comprised of teams from the "big five" leagues: the top tiers of England, France, Germany, Italy, and Spain.
+        </p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/4ab81aef3c0753088497d208de81fffc.js"></script>
+        </div>
+        <p>We wish to determine the factors that influence a player's market value, indicated by the <code>Value</code> column in this dataset. Of all attributes, <code>Overall</code> is the most likely to have a positive correlation with <code>Value</code>, as <code>Overall</code> is a fixed, comprehensive estimation of a player's ability.</p>
+        <p>To explore more correlations, we can create a heat map of the dataset's numeric values.</p>
+        <div class="gist">
+            <script src="https://gist.github.com/hadialsayedali01/d6996eb7436f129da37d878a7cfec58a.js"></script>
+        </div>
+        <p>
+           This confirms that a player's overall rating has the strongest correlation with their market value. <code>Potential</code>, an estimation of a player's eventual overall rating, also has an expected strong correlation. 
+        </p>
+        <h2>
+            Conclusion
+        </h2>
+        <p>
+            Surprisingly, <code>Contract_Valid_Until</code> has a low correlation with 'Value'. <code>Contract_Valid_Until</code> contains the year that a player's current contract with their respective club expires; generally, if a player has many years left on their contract, their value would be higher, as the club is less pressured to sell the player. Conversely, if a player has only one year left on their contract, clubs are pressured to sell them as soon as they can, lest the player leaves for free. 
+        </p>
+        <p>
+            As an example of the latter case, in 2020, Thiago Alcântara had a year remaining on his contract with FC Bayern Munich before he transferred to Liverpool <a target="_blank" href='https://www.skysports.com/football/news/11890/12074593/thiago-alcantara-liverpool-sign-bayern-munich-midfielder-in-25m-deal'>for a fee of 20 million Euros</a>, which was less than half of his perceived value.
+        </p>
+        <p>
+            The lack of positive correlation between <code>Contract_Valid_Until</code> and <code>Value</code> indicates that EA prioritizes the raw player attributes over the player's status in the context of their team. 
+        </p>
+        <p>
+            Note that <code>Wage</code>, which indicates a player's weekly wage (in Euros) paid by their club, has a positive correlation with <code>Value</code>; however, unlike the remaining number of years left on a player's contract, a player's weekly wage is strongly correlated with their overall rating and is not strictly relevant to a player's status in their team. 
+        </p>
+    </div>
+</body>
+<script>
+    dialogDict = {
+        numPlayersTeamsNations:[
+            `<pre>
+                SELECT 
+                count(*) 'Number of Players', 
+                count(DISTINCT club) 'Number of Teams',
+                count(DISTINCT nationality) 'Number of Nations'
+                FROM players;
+            <pre>`,
+            `<table border="1"><tbody><tr><td bgcolor="silver" class="medium">Number of Players</td><td bgcolor="silver" class="medium">Number of Teams</td><td bgcolor="silver" class="medium">Number of Nations</td></tr><tr><td class="normal" valign="top">16170</td><td class="normal" valign="top">874</td><td class="normal" valign="top">155</td></tr></tbody></table>`
+        ],
+        avgModeRating:[
+            `
+            <pre>
+            SELECT 
+            avg(overall) 'Average of Rating',
+            (SELECT overall FROM players GROUP BY overall ORDER BY count(*) DESC LIMIT 1) 'Mode of Rating'
+            FROM players;
+            </pre>
+            `,
+            `<table border="1"><tbody><tr><td bgcolor="silver" class="medium">Average of Rating</td><td bgcolor="silver" class="medium">Mode of Rating</td></tr><tr><td class="normal" valign="top">63.6085</td><td class="normal" valign="top">60</td></tr></tbody></table>`
+    
+        ],
+        nationsValue:[
+            `<pre>
+                SELECT nationality, round(avg(value),2) 'Average Value'
+                FROM players
+                GROUP BY nationality
+                HAVING count(*)>350
+                ORDER BY 2 DESC
+                LIMIT 5;
+            </pre>
+            `,
+            '<table border="1"><tbody><tr><td bgcolor="silver" class="medium">nationality</td><td bgcolor="silver" class="medium">Average Value</td></tr><tr><td class="normal" valign="top">Brazil</td><td class="normal" valign="top">7519782.16</td></tr><tr><td class="normal" valign="top">France</td><td class="normal" valign="top">5510356.22</td></tr><tr><td class="normal" valign="top">Spain</td><td class="normal" valign="top">5148150.22</td></tr><tr><td class="normal" valign="top">Italy</td><td class="normal" valign="top">482225</td></tr></tbody></table>'
+            
+        ],
+        nationsRating:[
+            `
+            <pre>
+                SELECT nationality, avg(overall) 'Average Rating'
+                FROM players
+                GROUP BY nationality
+                HAVING count(*)>350
+                ORDER BY 2 DESC
+                LIMIT 5;
+            </pre>
+            `
+            ,
+            `<table border="1"><tbody><tr><td bgcolor="silver" class="medium">nationality</td><td bgcolor="silver" class="medium">Average Rating</td></tr><tr><td class="normal" valign="top">Brazil</td><td class="normal" valign="top">70.5643</td></tr><tr><td class="normal" valign="top">Spain</td><td class="normal" valign="top">67.7848</td></tr><tr><td class="normal" valign="top">Italy</td><td class="normal" valign="top">67.0000</td></tr><tr><td class="normal" valign="top">Argentina</td><td class="normal" valign="top">66.9111</td></tr><tr><td class="normal" valign="top">France</td><td class="normal" valign="top">66.3122</td></tr></tbody></table>`
+        ], 
+    }
+    dialogGeneral = document.createElement("dialog")
+    closeDialog = document.createElement("button")
+    closeDialog.textContent="Close"
+    closeDialog.addEventListener("click",(event)=>{
+        event.preventDefault()
+        dialogGeneral.close()
+    })
+
+    dialogGeneral.appendChild(closeDialog)
+    document.getElementsByTagName("html")[0].appendChild(dialogGeneral);
+    
+    document.getElementById("numPlayersTeamsNations").addEventListener("click",()=>{
+        dialogGeneral.innerHTML=dialogDict.numPlayersTeamsNations[0]+dialogDict.numPlayersTeamsNations[1]
+        dialogGeneral.appendChild(closeDialog);
+        dialogGeneral.showModal();
+    });
+
+    document.getElementById("avgModeRating").addEventListener("click",()=>{
+        dialogGeneral.innerHTML=dialogDict.avgModeRating[0]+dialogDict.avgModeRating[1]
+        dialogGeneral.appendChild(closeDialog);
+        dialogGeneral.showModal();
+    })
+
+    document.getElementById("nationsRating").addEventListener("click",()=>{
+        dialogGeneral.innerHTML=dialogDict.nationsRating[0]+dialogDict.nationsRating[1]
+        dialogGeneral.appendChild(closeDialog);
+        dialogGeneral.showModal();
+    })
+
+    document.getElementById("nationsValue").addEventListener("click",()=>{
+        dialogGeneral.innerHTML=dialogDict.nationsValue[0]+dialogDict.nationsValue[1]
+        dialogGeneral.appendChild(closeDialog);
+        dialogGeneral.showModal();
+    })
+</script>
+</html>
