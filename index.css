@@ -1,87 +1,92 @@
-html, pre {
-    background-color: black;
-    color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-script {
-    overflow: scroll;
-}
-
-code {
-    font-family: monospace;
-    background-color: darkslategrey;
-    font-size: larger;
-}
-
-a, a:visited {
-    color: lightblue;
-}
-
-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-right: 10px;
-    margin-left: 10px;
-    padding: 15px;
-    background-color: #111212;
-}
-
-.gist {
-    height: 10%;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.tableauPlaceholder {
-    width: 60%;
-    height: auto;
-}
-
-dialog[open] {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-}
-
-dialog[open] * {
-    background-color: white;
-    color: black;
-    overflow: auto;
-}
-
-.sqlLink {
-    color: lightgreen;
-    cursor: pointer;
-}
-
-button {
-    margin-top: 15px;
-    border: 2px solid black;
-}
-
-h1 {
-    background-color: darkslategray;
-    padding: 10px;
-    width: 100%;
-}
-
-h2 {
-    font-size: xx-large;
-    margin: 0;
-    border-bottom: 1px solid white;
-}
+        html, pre{
+            background-color: black;
+            color:white;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        script{
+            overflow: scroll;
+        }
+        code{
+            font-family:monospace;
+            background-color: darkslategrey;
+            font-size:larger;
+        }
+        a,a:visited{
+            color:lightblue;
+        }
+        header{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: left;
+        }
+        #content{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 20px;
+            margin-right: 10px;
+            margin-left: 10px;
+            /* border: 2px solid white; */
+            padding:15px;
+            background-color: #111212;
+            border-radius: 25px;
+        }
+        .gist{
+            height:10%;
+            width:80%;
+            margin:0 auto;
+        }
+        .tableauPlaceholder{
+            width:60%;
+            height:auto;
+        }
+        dialog[open] {
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family:'Segoe UI', Tahoma, Verdana, sans-serif;
+        }
+        dialog[open] * {
+            background-color: white;
+            color:black;
+            overflow:auto;
+        }
+        .sqlLink{
+            color:lightgreen;
+            cursor:pointer;
+        }
+        button{
+            margin-top: 15px;
+            border:2px solid black;
+        }
+        h1{
+            background-color: darkslategray;
+            padding:10px;
+            width:100%;
+        }
+        h2{
+            font-size:xx-large;
+            margin:0;
+            border-bottom: 1px solid white;
+        }
+        #table-contents{
+            display: flex;
+            flex-direction: column;
+            margin:10px;
+            background-color:#111212;
+            padding:5px;
+            border-radius: 20px;
+            width:fit-content;
+        }
+        #table-contents * {
+            color:white;
+            text-decoration: none;
+            margin:3px;
+            font-weight: 500;
+        }
